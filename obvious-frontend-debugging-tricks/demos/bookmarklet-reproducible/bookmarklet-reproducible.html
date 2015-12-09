@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookmarklet Reproducible</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div class="container">
+        <a id="erroneous">Trigger Error</a>
+
+        <textarea id="source">
+(function() {
+var data = {
+    url: document.location.href,
+    cookie: document.cookie,
+    userAgent: window.navigator.userAgent,
+    error: '',
+    html: document.documentElement.outerHTML
+};
+
+window.onerror = function(_, _, _, _, error) {
+    data.error = {
+        fileName: error.fileName,
+        lineNumber: error.lineNumber,
+        columnNumber: error.columnNumber,
+        message: error.message,
+        stack: error.stack
+    };
+};
+
+var copy = document.querySelector('#reproducible-copy') || document.createElement('a');
+copy.innerHTML = 'Copy Info';
+copy.id = 'reproducible-copy';
+copy.style = 'position: fixed; left: 0; right: 0; bottom: 0; padding: 10px;' +
+             'margin: 0; background-color: #eee; text-align: center;' +
+             'text-decoration: none; color: black; cursor: pointer; z-index: 99999;';
+document.body.appendChild(copy);
+
+document.querySelector('#reproducible-copy').addEventListener('click', function() {
+    var textarea = document.querySelector('#reproducible-info') || document.createElement('textarea');
+    textarea.value = JSON.stringify(data, null, 2);
+    textarea.style = 'position: fixed; left: 0; right: 0; bottom: 40px;' +
+                     'resize: none; width: 100%; height: 130px;' +
+                     'font-family: monospace; border: 1px solid #ccc; z-index: 99999;';
+    textarea.id = 'reproducible-info';
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    document.execCommand("copy");
+})}())
+        </textarea>
+        <a id="run">Run Reproducible</a>
+    </div>
+
+    <style>
+        .container {
+            width: 750px;
+            margin: auto;
+            padding: 30px 50px;
+            border: 1px solid #ccc;
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            display: block;
+            resize: none;
+            width: 100%;
+            height: 130px;
+            margin-top: 30px;
+            font-family: monospace;
+            border: 1px solid #ccc;
+        }
+
+        a {
+            display: block;
+            background-color: #eee;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            text-decoration: none;
+            color: inherit;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        a:active {
+            border-left: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+            border-right: 0;
+            border-bottom: 0;
+        }
+    </style>
+
+    <script>
+        document.querySelector('#erroneous').addEventListener('click', function() {
+            ({}).is_not_a_function()
+        })
+    </script>
+
+    <script>
+        var source = document.querySelector('#source')
+
+        function updateBookmarklet() {
+            var bookmarklet = 'javascript: ' +
+              source.value.replace('\n', '').replace(/ {2,}/g, ' ')
+
+            document.querySelector('#run').href = bookmarklet
+        }
+
+        updateBookmarklet()
+        source.addEventListener('change', updateBookmarklet)
+    </script>
+</body>
+</htm>

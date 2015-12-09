@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookmarklet Fill Form</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div class="container">
+        <form id="form" class="form">
+
+            <div class="form-row">
+                <input type="text" name="name" placeholder="Name">
+            </div>
+
+            <div class="form-row">
+                <input type="text" name="email" placeholder="Email">
+            </div>
+
+            <div class="form-row">
+                <input type="tel" name="phone" placeholder="Phone">
+            </div>
+
+            <div class="form-row">
+                <select name="country">
+                    <option value="1">Canada</option>
+                    <option value="2">France</option>
+                    <option value="3">Germany</option>
+                    <option value="4">Russia</option>
+                    <option value="5">USA</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <input type="radio" name="gender" value="male">
+                    <span>Mister</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="gender" value="female">
+                    <span>Missis</span>
+                </label>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <textarea id="source">
+(function() {
+var parameters = {
+    form: '#form',
+    data: [
+        {name: 'name', value: 'Beep Boop', type: 'text'},
+        {name: 'email', value: 'beep@boop.com', type: 'text'},
+        {name: 'phone', value: '+7 (903) 123-45-67', type: 'text'},
+        {name: 'country', value: '4', type: 'select'},
+        {name: 'gender', value: 'female', type: 'radio'}
+    ]
+};
+
+(function fillForm(parameters) {
+    var form = document.querySelector(parameters.form);
+
+    parameters.data.forEach(function(entry) {
+        var element = form.querySelector('[name="' + entry.name + '"]');
+
+        switch (entry.type) {
+            case 'radio':
+                element = form.querySelector('[name="' + entry.name + '"]' +
+                                             '[value="' + entry.value + '"]');
+                element.checked = true;
+                break;
+            default:
+                element.value = entry.value;
+        }
+    });
+}(parameters));
+}())
+        </textarea>
+        <a id="run">Fill Form</a>
+    </div>
+
+    <style>
+        .container {
+            width: 750px;
+            margin: auto;
+            padding: 30px 50px;
+            border: 1px solid #ccc;
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 5px 15px;
+            text-align: center;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+        }
+
+        textarea {
+            display: block;
+            resize: none;
+            width: 100%;
+            height: 130px;
+            margin: auto;
+            font-family: monospace;
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+        }
+
+        a {
+            display: block;
+            background-color: #eee;
+            padding: 10px;
+            text-align: center;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            text-decoration: none;
+            color: inherit;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        a:active {
+            border-left: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+            border-right: 0;
+            border-bottom: 0;
+
+        }
+
+        select {
+            width: 100%;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+    <script>
+        var source = document.querySelector('#source')
+
+        function updateBookmarklet() {
+            var bookmarklet = 'javascript: ' +
+              source.value.replace('\n', '').replace(/ {2,}/g, ' ')
+
+            document.querySelector('#run').href = bookmarklet
+        }
+
+        updateBookmarklet()
+        source.addEventListener('change', updateBookmarklet)
+    </script>
+</body>
+</htm>

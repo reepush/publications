@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Edit</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div id="message"></div>
+
+    <script src="live-edit.js"></script>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        #message {
+            margin: auto;
+            font-size: 10vw;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .done {
+            background-color: #2ecc71;
+        }
+
+        .failed {
+            background-color: #e74c3c;
+        }
+
+        .failed #message:before {
+            content: 'Failed';
+        }
+
+        .done #message:before {
+            content: 'Done';
+        }
+    </style>
+</body>
+</htm>

@@ -1,0 +1,40 @@
+var gulp    = require('gulp'),
+    bs      = require('browser-sync').create(),
+    serve   = require('serve-static')
+
+gulp.task('browser-sync', function() {
+    bs.init({
+      proxy: {
+        target: 'https://www.yandex.ru/',
+        middleware: serve('./'),
+        proxyRes: [function(res, req) {
+            // Remove content-security-policy header
+            // to allow BrowserSync connections.
+            delete res.headers['content-security-policy']
+        }]
+      },
+      open: false,
+      port: 3000,
+      rewriteRules: [
+        {
+          match: /<\/body>/,
+          fn: function() {
+            return '<script src="/custom.js"></script>\n'
+          }
+        },
+        {
+          match: /<\/head>/,
+          fn: function() {
+            return '<link rel="stylesheet" href="/custom.css">\n'
+          }
+        }
+      ]
+    })
+})
+
+gulp.task('default', ['browser-sync'], function() {
+    gulp.watch('custom.js', bs.reload)
+    // We need to tell BrowserSync that stylesheet was changed
+    // for injection without page reloading.
+    gulp.watch('custom.css', bs.reload.bind(null, 'custom.css'))
+})
