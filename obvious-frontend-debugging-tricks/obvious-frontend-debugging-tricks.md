@@ -45,6 +45,7 @@
 Клонируем пример, устанавливаем зависимости и запускаем:
 ```
 git clone https://gist.github.com/5d9bb62112b4bf183926.git proxify-assets
+cd proxify-assets
 npm install
 gulp
 ```
