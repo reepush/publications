@@ -61,7 +61,7 @@ gulp
 
 #### Отладка с помощью Valence
 Valence является адаптером к различным браузерам (Safari на iOS, Firefox на Android, Chrome), приводящим различные протоколы к единому виду. Таким образом можно всегда использовать привычный инструмент для отладки, либо же сделать его привычным ツ  
-Более подробно посмотреть как использовать WebIDE вместе с Valence можно на [MDN](https://developer.mozilla.org/en-US/docs/Tools/WebIDE/Setting_up_runtimes).
+Более подробно посмотреть как использовать WebIDE вместе с Valence можно на [MDN](https://developer.mozilla.org/en-US/docs/Tools/WebIDE/Setting_up_runtimes#Other_runtimes).
 
 >  
 C Chrome так же можно подключаться к iOS, но по сравнению с WebIDE это выглядит довольно сложно.  
