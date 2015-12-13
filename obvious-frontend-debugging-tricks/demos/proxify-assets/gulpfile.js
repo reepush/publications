@@ -1,20 +1,18 @@
-var gulp    = require('gulp'),
-    bs      = require('browser-sync').create(),
-    serve   = require('serve-static')
+var gulp = require('gulp'),
+    bs   = require('browser-sync').create()
 
 gulp.task('browser-sync', function() {
     bs.init({
       proxy: {
         target: 'https://www.yandex.ru/',
-        middleware: serve('./'),
         proxyRes: [function(res, req) {
             // Remove content-security-policy header
             // to allow BrowserSync connections.
             delete res.headers['content-security-policy']
         }]
       },
-      open: false,
       port: 3000,
+      serveStatic: ['./'],
       rewriteRules: [
         {
           match: /<\/body>/,

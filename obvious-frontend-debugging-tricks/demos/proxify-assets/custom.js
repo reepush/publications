@@ -1,5 +1,5 @@
 var angle = 0
-var logo = document.querySelector('.home-logo__link')
+var logo = document.querySelector('.home-logo')
 
 setInterval(function() {
     angle = (angle + 20) % 360
