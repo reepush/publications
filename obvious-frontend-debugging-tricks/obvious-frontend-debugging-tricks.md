@@ -116,9 +116,8 @@ C Chrome так же можно подключаться к iOS, но по ср�
 _Пропускаем точки останова в текущем тике в Chrome_ | ![](http://reepush.github.io/publications/obvious-frontend-debugging-tricks/images/next-tick.png)
 _Подсветка измененных стилей в Firefox_ | ![](http://reepush.github.io/publications/obvious-frontend-debugging-tricks/images/changed-styles.png)
 _Переключение классов в Chrome_ | ![](http://reepush.github.io/publications/obvious-frontend-debugging-tricks/images/toggle-class.png)
-_Изменение способа описания цвета в Firefox (Shift + клик)_ | ![](http://reepush.github.io/publications/obvious-frontend-debugging-tricks/images/color-types.png)
+_Изменение способа описания цвета (Shift + клик)_ | ![](http://reepush.github.io/publications/obvious-frontend-debugging-tricks/images/color-types.png)
 _Обращение к выделенному элементу в инспекторе через $0 (кое-кто не знал)_ | ![](http://reepush.github.io/publications/obvious-frontend-debugging-tricks/images/selected-element.png)
 _Скрытие элмента по хоткею `H` и скролл по `S`_ |
 
 На этом все. А если вы знаете другие полезные трюки – поделитесь ими в комментариях!
-
